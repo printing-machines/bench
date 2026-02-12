@@ -1,0 +1,72 @@
+[project]
+name = "paintbench"
+version = "0.1.0"
+description = "VLM Painting Benchmark - evaluates vision-language models on procedural painting tasks"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.24",
+    "pillow>=10.0",
+    "rembg[cpu]>=2.0.72",
+    "opencv-python>=4.9",
+    "scikit-image==0.26.0",
+    "diffusers==0.36.0",
+    "transformers==4.57.6",
+    "accelerate==1.12.0",
+    "safetensors==0.7.0",
+    "controlnet-aux==0.0.10",
+    "numba>=0.57",
+    "llvmlite>=0.40",
+    "python-dotenv>=1.0",
+    "google-genai>=1.0",
+    "anthropic>=0.40",
+    "openai>=1.50",
+    "lpips>=0.1",
+    "clip @ git+https://github.com/openai/CLIP.git",
+    "openrouter>=0.1.1",
+    "pyserial>=3.5",
+    "flask>=3.1.2",
+    "matplotlib>=3.10.8",
+    "scipy>=1.16.3",
+    "pandas==3.0.0",
+]
+
+[project.scripts]
+paintbench = "src.runner:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-dir]
+paintbench = "src"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+    "pyright>=1.1",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501", "E722"]
+
+[tool.pyright]
+include = ["src", "gcode", "tests"]
+exclude = ["experiments"]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
